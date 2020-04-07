@@ -1,3 +1,6 @@
+## Current build
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ca9c544e-dd66-488f-ada4-18117ce261b0/deploy-status)](https://app.netlify.com/sites/jimjunker/deploys)
+
 <p align="center"><a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener"><img src="https://sourcethemes.com/academic/img/logo_200px.png" alt="Academic logo"></a></p>
 
 # Academic Kickstart: The Template for [Academic Website Builder](https://sourcethemes.com/academic/)
