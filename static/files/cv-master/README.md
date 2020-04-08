@@ -1,9 +1,9 @@
-# Sam Abbott's Curriculum Vitae
+# Jim Junkers Curriculum Vitae
 
 [![Travis-CI Build
-Status](https://travis-ci.org/seabbs/cv.svg?branch=master)](https://travis-ci.org/seabbs/cv)
+Status](https://travis-ci.org/jimjunker1/academic-kickstart.svg?branch=master)](https://travis-ci.org/jimjunker1/academic-kickstart)
 
-Academic CV built using R - updated automatically from [Google Scholar](https://scholar.google.com/citations?user=GqZm90IAAAAJ&hl=en) each week. See [here](https://www.samabbott.co.uk/cv/cv.pdf) for the full rendered CV. See below for repository structure, tool links and to dos. Please feel free to fork this repository for your own use but please let me know of any improvements that you make (so I can steal them).
+Academic CV built using R - updated automatically from [Google Scholar](https://scholar.google.com/citations?user=q3E1S9MAAAAJ&hl=en) each week. See [here](https://www.jimjunker.com/cv.pdf) for the full rendered CV. See below for repository structure, tool links and to dos. Please feel free to fork this repository for your own use but please let me know of any improvements that you make (so I can steal them).
 
 ## Structure
 

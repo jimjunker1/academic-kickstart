@@ -5,3 +5,9 @@
 resources/
 public/
 .Rproj.user
+
+#general
+.Rhistory
+.RData
+.Ruserdata
+README.html
