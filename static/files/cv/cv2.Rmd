@@ -1,0 +1,67 @@
+---
+name: Jim
+surname: Junker
+position: "Ecologist"
+address: "Louisiana Universities Marine Consortium"
+phone: +1 651 587 1477
+www: jimjunker.com
+email: "james.junker1@gmail.com"
+twitter: jimjunker
+github: jimjunker1
+date: "`r format(Sys.time(), '%B %Y')`"
+output:
+  vitae::awesomecv:
+#  vitae::hyndman:
+    keep_tex: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(vitae)
+library(RefManageR)
+library(rorcid)
+'%ni%' <- Negate('%in%')
+```
+
+# Education
+
+```{r}
+edu <- do.call("rbind", rorcid::orcid_educations("0000-0001-9713-2330")$`0000-0001-9713-2330`$`affiliation-group`$summaries)
+
+
+edu %>%
+  detailed_entries(
+    what = `education-summary.role-title`,
+    when = `education-summary.end-date.year.value`,
+    with = `education-summary.organization.name`,
+    where = paste0(`education-summary.organization.address.city`,", ",`education-summary.organization.address.region`)
+  )
+
+```
+
+
+# Publications
+
+```{r}
+pubs <- scholar::get_publications("q3E1S9MAAAAJ") %>% 
+  slice(-(n()-3):-n()) %>%
+  dplyr::mutate(author = author %>% 
+                  as.character %>% 
+                  stringr::str_trim(),
+                journal = journal, 
+                first_author = case_when(stringr::str_starts(author, "JR Junker") ~ TRUE,
+                                         TRUE ~ FALSE)) %>% 
+  filter(title %ni% c("Freshwater processing of terrestrial dissolved organic matter: What governs lability?","RIVERINE DISSOLVED ORGANIC MATTER DECOMPOSITION AND DYNAMICS","Trophic basis of invertebrate production in a Northern Rockies stream with recent willow recovery")) %>%
+  dplyr::arrange(desc(year))
+
+pubs %>% 
+  detailed_entries(
+    what = title,
+    when = year,
+    with = author,
+    where = journal, 
+    .protect = TRUE
+  )
+```
+

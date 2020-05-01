@@ -22,7 +22,7 @@ source("../scripts/install.R")
 
 ```{r get data, include=FALSE}
 ## Education
-edu <- read_csv("../data/education.csv")
+edu <- do.call("rbind", rorcid::orcid_educations("0000-0001-9713-2330")$`0000-0001-9713-2330`$`affiliation-group`$summaries)
 
 ## Publications - change google id here
 pubs <- scholar::get_publications("q3E1S9MAAAAJ") %>% 
@@ -30,11 +30,8 @@ pubs <- scholar::get_publications("q3E1S9MAAAAJ") %>%
   dplyr::mutate(author = author %>% 
                   as.character %>% 
                   stringr::str_trim(),
-                journal = journal %>% 
-                  replace(journal %in% "bioRxiv", "BioRxiv"), 
+                journal = journal, 
                 first_author = case_when(stringr::str_starts(author, "JR Junker") ~ TRUE,
-                                         TRUE ~ FALSE),
-                preprint = case_when(journal %in% c("bioRxiv", "BioRxiv") ~ TRUE,
                                          TRUE ~ FALSE)) %>% 
   dplyr::arrange(desc(year))
 
@@ -50,26 +47,26 @@ teaching <- read_csv("../data/teaching.csv") %>%
 presentations <- read_csv("../data/presentations.csv") %>% 
   arrange(desc(when))
 
-## Skills
-skills <- read_csv("../data/skills.csv") %>% 
-  group_by(category) %>% 
-  mutate(skill = paste(skill, collapse = ", ")) %>% 
-  ungroup %>% 
-  unique
+# ## Skills
+# skills <- read_csv("../data/skills.csv") %>% 
+#   group_by(category) %>% 
+#   mutate(skill = paste(skill, collapse = ", ")) %>% 
+#   ungroup %>% 
+#   unique
 
 ## Service
 service <- read_csv("../data/service.csv")
 ```
 
 # Education 
-```{r}
-detailed_entries(edu, 
-                 when = degree_date,
-                 what = degree,
-                 with = uni,
-                 why = details)
-
-```
+# ```{r}
+# detailed_entries(edu, 
+#                  when = degree_date,
+#                  what = degree,
+#                  with = uni,
+#                  why = details)
+# 
+# ```
 
 # Publications
 
@@ -84,26 +81,20 @@ pubs %>%
   )
 ```
 
-**Preprints**
+<!-- **Preprints** -->
 
-```{r}
-pubs %>% 
-  dplyr::filter(preprint) %>% 
-  detailed_entries(
-    what = title,
-    when = year,
-    with = author,
-    where = journal, 
-    .protect = TRUE
-  )
-```
+<!-- ```{r} -->
+<!-- pubs %>%  -->
+<!--   dplyr::filter(preprint) %>%  -->
+<!--   detailed_entries( -->
+<!--     what = title, -->
+<!--     when = year, -->
+<!--     with = author, -->
+<!--     where = journal,  -->
+<!--     .protect = TRUE -->
+<!--   ) -->
+<!-- ``` -->
 
-# Training
-
-```{r}
-training %>% 
-  detailed_entries(what = what, with = with, when = when, where = where, why = why)
-```
 # Teaching
 
 ```{r}
@@ -111,12 +102,12 @@ teaching %>%
   detailed_entries(what = what, when = when, with = with, where = where, why = why)
 ```
 
-# Skills
+<!-- # Skills -->
 
-```{r}
-skills %>% 
-  detailed_entries(what = skill, with = category)
-```
+<!-- ```{r} -->
+<!-- skills %>%  -->
+<!--   detailed_entries(what = skill, with = category) -->
+<!-- ``` -->
 
 *Updated programmatically each week. See [here](https://scholar.google.com/citations?user=q3E1S9MAAAAJ&hl=en) for DOIs and citation details.*
 
@@ -145,9 +136,9 @@ presentations %>%
                    .protect = TRUE)
 ```
 
-# Service
+<!-- # Service -->
 
-```{r}
-service %>% 
-  detailed_entries(with = type, why = details)
-```
+<!-- ```{r} -->
+<!-- service %>%  -->
+<!--   detailed_entries(with = type, why = details) -->
+<!-- ``` -->

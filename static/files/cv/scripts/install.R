@@ -2,6 +2,7 @@
 if (!require(pacman)) install.packages("pacman"); library(pacman)
 
 remotes::install_github("ropensci/tic")
+p_load(rorcid)
 p_load(tinytex)
 p_load(scholar)
 p_load_gh("ropensci/vitae")

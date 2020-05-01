@@ -1,0 +1,128 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for CV/Resume
+%
+% This template has been downloaded from:
+% https://github.com/posquit0/Awesome-CV
+%
+% Author:
+% Claud D. Park <posquit0.bj@gmail.com>
+% http://www.posquit0.com
+%
+%
+% Adapted to be an Rmarkdown template by Mitchell O'Hara-Wild
+% 23 November 2018
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% A4 paper size by default, use 'letterpaper' for US letter
+\documentclass[11pt, a4paper]{awesome-cv}
+
+% Configure page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Specify the location of the included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+
+\colorlet{awesome}{awesome-red}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+\def\endfirstpage{\newpage}
+
+%-------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+% Available options: circle|rectangle,edge/noedge,left/right
+
+\name{Jim}{Junker}
+
+\position{Ecologist}
+\address{Louisiana Universities Marine Consortium}
+
+\mobile{+1 651 587 1477}
+\email{\href{mailto:james.junker1@gmail.com}{\nolinkurl{james.junker1@gmail.com}}}
+\homepage{jimjunker.com}
+\github{jimjunker1}
+\twitter{jimjunker}
+
+% \gitlab{gitlab-id}
+% \stackoverflow{SO-id}{SO-name}
+% \skype{skype-id}
+% \reddit{reddit-id}
+
+
+\usepackage{booktabs}
+
+% Templates for detailed entries
+% Arguments: what when with where why
+\usepackage{etoolbox}
+\def\detaileditem#1#2#3#4#5{%
+\cventry{#1}{#3}{#4}{#2}{\ifx#5\empty\else{\begin{cvitems}#5\end{cvitems}}\fi}\ifx#5\empty{\vspace{-4.0mm}}\else\fi}
+\def\detailedsection#1{\begin{cventries}#1\end{cventries}}
+
+% Templates for brief entries
+% Arguments: what when with
+\def\briefitem#1#2#3{\cvhonor{}{#1}{#3}{#2}}
+\def\briefsection#1{\begin{cvhonors}#1\end{cvhonors}}
+
+\providecommand{\tightlist}{%
+	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+%------------------------------------------------------------------------------
+
+
+
+\begin{document}
+
+% Print the header with above personal informations
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+% 2019-02-14 Chris Umphlett - add flexibility to the document name in footer, rather than have it be static Curriculum Vitae
+\makecvfooter
+  {May 2020}
+    {Jim Junker~~~·~~~Curriculum Vitae}
+  {\thepage}
+
+
+%-------------------------------------------------------------------------------
+%	CV/RESUME CONTENT
+%	Each section is imported separately, open each file in turn to modify content
+%------------------------------------------------------------------------------
+
+
+
+\hypertarget{education}{%
+\section{Education}\label{education}}
+
+\detailedsection{\detaileditem{Ph.D.}{2019}{Montana State University Bozeman}{Bozeman, MT}{\empty}\detaileditem{Master of Science}{2011}{Montana State University Bozeman}{Bozeman, MT}{\empty}\detaileditem{Bachelor of Science}{2007}{Northland College}{Ashland, WI}{\empty}}
+
+\hypertarget{publications}{%
+\section{Publications}\label{publications}}
+
+\detailedsection{\detaileditem{Thermal niche diversity and trophic redundancy drive neutral effects of warming on energy flux through a stream food web}{2020}{D Nelson, JP Benstead, AD Huryn, WF Cross, JM Hood, PW Johnson, ...}{Ecology}{\empty}\detaileditem{DOM composition alters ecosystem function during microbial processing of isolated sources}{2019}{J D’Andrilli, JR Junker, HJ Smith, EA Scholl, CM Foreman}{Biogeochemistry}{\empty}\detaileditem{Increased resource use efficiency amplifies positive response of aquatic primary production to experimental warming}{2018}{JM Hood, JP Benstead, WF Cross, AD Huryn, PW Johnson, GM Gíslason, ...}{Global change biology}{\empty}\detaileditem{Experimental whole‐stream warming alters community size structure}{2017}{D Nelson, JP Benstead, AD Huryn, WF Cross, JM Hood, PW Johnson, ...}{Global Change Biology}{\empty}\detaileditem{Shifts in community size structure drive temperature invariance of secondary production in a stream‐warming experiment}{2017}{D Nelson, JP Benstead, AD Huryn, WF Cross, JM Hood, PW Johnson, ...}{Ecology}{\empty}\detaileditem{Seasonality in the trophic basis of a temperate stream invertebrate assemblage: Importance of temperature and food quality}{2014}{JR Junker, WF Cross}{Limnology and Oceanography}{\empty}\detaileditem{Impacts of warming on the structure and functioning of aquatic communities: individual-to ecosystem-level responses}{2012}{EJ O'Gorman, DE Pichler, G Adams, JP Benstead, H Cohen, N Craig, ...}{Advances in ecological research}{\empty}}
+
+\end{document}
