@@ -1,117 +1,94 @@
-%!TEX TS-program = xelatex
-%!TEX encoding = UTF-8 Unicode
-% Awesome CV LaTeX Template for CV/Resume
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Twenty Seconds Resume/CV
+% LaTeX Template
+% Version 1.1 (8/1/17)
 %
 % This template has been downloaded from:
-% https://github.com/posquit0/Awesome-CV
+% http://www.LaTeXTemplates.com
 %
-% Author:
-% Claud D. Park <posquit0.bj@gmail.com>
-% http://www.posquit0.com
+% Original author:
+% Carmine Spagnuolo (cspagnuolo@unisa.it) with major modifications by
+% Vel (vel@LaTeXTemplates.com)
 %
-%
-% Adapted to be an Rmarkdown template by Mitchell O'Hara-Wild
+% Adapted to be an Rmarkdown template by Rob J Hyndman
 % 23 November 2018
 %
-% Template license:
-% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+% License:
+% The MIT License (see included LICENSE file)
 %
-%-------------------------------------------------------------------------------
-% CONFIGURATIONS
-%-------------------------------------------------------------------------------
-% A4 paper size by default, use 'letterpaper' for US letter
-\documentclass[11pt, a4paper]{awesome-cv}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Configure page margins with geometry
-\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
 
-% Specify the location of the included fonts
-\fontdir[fonts/]
+\documentclass[10pt,a4paper,]{twentysecondcv}
 
-% Color for highlights
-% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
-%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\usepackage[scaled=0.86]{DejaVuSansMono}
 
-\colorlet{awesome}{awesome-red}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{csquotes}
 
-% Colors for text
-% Uncomment if you would like to specify your own color
-% \definecolor{darktext}{HTML}{414141}
-% \definecolor{text}{HTML}{333333}
-% \definecolor{graytext}{HTML}{5D5D5D}
-% \definecolor{lighttext}{HTML}{999999}
-
-% Set false if you don't want to highlight section with awesome color
-\setbool{acvSectionColorHighlight}{true}
-
-% If you would like to change the social information separator from a pipe (|) to something else
-\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
-
-\def\endfirstpage{\newpage}
-
-%-------------------------------------------------------------------------------
-%	PERSONAL INFORMATION
-%	Comment any of the lines below if they are not required
-%-------------------------------------------------------------------------------
-% Available options: circle|rectangle,edge/noedge,left/right
-
-\name{Jim}{Junker}
-
-\position{Ecologist}
-\address{Louisiana Universities Marine Consortium}
-
-\mobile{+1 651 587 1477}
-\email{\href{mailto:james.junker1@gmail.com}{\nolinkurl{james.junker1@gmail.com}}}
-\homepage{jimjunker.com}
-\github{jimjunker1}
-\twitter{jimjunker}
-
-% \gitlab{gitlab-id}
-% \stackoverflow{SO-id}{SO-name}
-% \skype{skype-id}
-% \reddit{reddit-id}
-
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
 
 \usepackage{booktabs}
+
+
+
+%----------------------------------------------------------------------------------------
+%	 PERSONAL INFORMATION
+%----------------------------------------------------------------------------------------
+
+% If you don't need one or more of the below, just remove the content leaving the command, e.g. \cvnumberphone{}
+
+% Profile pic
+\profilepic{}
+
+\cvname{JimJunker} % Your name
+
+\cvjobtitle{Ecologist} % Job title/career
+\cvdate{May 2020} % Date of birth or date of CV??
+\cvaddress{Louisiana Universities Marine Consortium} % Short address/location, use \newline if more than 1 line is required
+\cvnumberphone{+1 651 587 1477} % Phone number
+\cvsite{\href{http://jimjunker.com}{jimjunker.com}} % Personal website
+\cvmail{\href{mailto:james.junker1@gmail.com}{\nolinkurl{james.junker1@gmail.com}}} % Email address
+\cvtwitter{\href{https://twitter.com/jimjunker}{jimjunker}}
+\cvgithub{\href{https://github.com/jimjunker1}{jimjunker1}}
+\cvlinkedin{}
 
 % Templates for detailed entries
 % Arguments: what when with where why
 \usepackage{etoolbox}
-\def\detaileditem#1#2#3#4#5{%
-\cventry{#1}{#3}{#4}{#2}{\ifx#5\empty\else{\begin{cvitems}#5\end{cvitems}}\fi}\ifx#5\empty{\vspace{-4.0mm}}\else\fi}
-\def\detailedsection#1{\begin{cventries}#1\end{cventries}}
+\def\detaileditem#1#2#3#4#5{
+\twentyitem{#2}{#1}{#3}{\ifx#4\empty\else#4\par\fi\ifx#5\empty\else{\begin{minipage}{0.7\textwidth}\begin{itemize}#5\end{itemize}\end{minipage}}\fi}}
+\def\detailedsection#1{\nopagebreak\begin{twenty}#1\end{twenty}}
 
 % Templates for brief entries
 % Arguments: what when with
-\def\briefitem#1#2#3{\cvhonor{}{#1}{#3}{#2}}
-\def\briefsection#1{\begin{cvhonors}#1\end{cvhonors}}
+\def\briefitem#1#2#3{\twentyitemshort{#2}{#1. #3}}
+\def\briefsection#1{\nopagebreak\begin{twentyshort}#1\end{twentyshort}}
 
-\providecommand{\tightlist}{%
-	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-%------------------------------------------------------------------------------
-
-
+\lfoot{\sf Curriculum Vitae: Jim Junker}
+\rfoot{\sf\thepage}
 
 \begin{document}
+\aboutme{}
 
-% Print the header with above personal informations
-% Give optional argument to change alignment(C: center, L: left, R: right)
-\makecvheader
+% Skill bar section, each skill must have a value between 0 an 6 (float)
+%\skills{{pursuer of rabbits/5.8},{good manners/4},{outgoing/4.3},{polite/4},{Java/0.01}}
 
-% Print the footer with 3 arguments(<left>, <center>, <right>)
-% Leave any of these blank if they are not needed
-% 2019-02-14 Chris Umphlett - add flexibility to the document name in footer, rather than have it be static Curriculum Vitae
-\makecvfooter
-  {May 2020}
-    {Jim Junker~~~·~~~Curriculum Vitae}
-  {\thepage}
+% Skill text section, each skill must have a value between 0 an 6
+%\skillstext{{lovely/4},{narcissistic/3}}
 
+\makeprofile % Print the sidebar
 
-%-------------------------------------------------------------------------------
-%	CV/RESUME CONTENT
-%	Each section is imported separately, open each file in turn to modify content
-%------------------------------------------------------------------------------
 
 
 
@@ -123,6 +100,8 @@
 \hypertarget{publications}{%
 \section{Publications}\label{publications}}
 
-\detailedsection{\detaileditem{Thermal niche diversity and trophic redundancy drive neutral effects of warming on energy flux through a stream food web}{2020}{D Nelson, JP Benstead, AD Huryn, WF Cross, JM Hood, PW Johnson, ...}{Ecology}{\empty}\detaileditem{DOM composition alters ecosystem function during microbial processing of isolated sources}{2019}{J D’Andrilli, JR Junker, HJ Smith, EA Scholl, CM Foreman}{Biogeochemistry}{\empty}\detaileditem{Increased resource use efficiency amplifies positive response of aquatic primary production to experimental warming}{2018}{JM Hood, JP Benstead, WF Cross, AD Huryn, PW Johnson, GM Gíslason, ...}{Global change biology}{\empty}\detaileditem{Experimental whole‐stream warming alters community size structure}{2017}{D Nelson, JP Benstead, AD Huryn, WF Cross, JM Hood, PW Johnson, ...}{Global Change Biology}{\empty}\detaileditem{Shifts in community size structure drive temperature invariance of secondary production in a stream‐warming experiment}{2017}{D Nelson, JP Benstead, AD Huryn, WF Cross, JM Hood, PW Johnson, ...}{Ecology}{\empty}\detaileditem{Seasonality in the trophic basis of a temperate stream invertebrate assemblage: Importance of temperature and food quality}{2014}{JR Junker, WF Cross}{Limnology and Oceanography}{\empty}\detaileditem{Impacts of warming on the structure and functioning of aquatic communities: individual-to ecosystem-level responses}{2012}{EJ O'Gorman, DE Pichler, G Adams, JP Benstead, H Cohen, N Craig, ...}{Advances in ecological research}{\empty}}
+\detailedsection{\detaileditem{Resource supply govers the apparent temperature dependence of animal production at multiple timescales}{In Review}{James R Junker, Wyatt F Cross, Jonathan P Benstead, Alexander D Huryn, James M Hood, Daniel Nelson, Gisli M Gíslason, Jón S Ólafsson}{Ecology Letters}{\empty}\detaileditem{Patterns and drivers of organic matter storage and stoichiometry across a wide stream temperature gradient}{In Review}{James R Junker, Wyatt F Cross, Jonathan P Benstead, Alexander D Huryn, James M Hood, Daniel Nelson, Gisli M Gíslason, Jón S Ólafsson}{Ecosystems}{\empty}\detaileditem{Thermal niche diversity and trophic redundancy drive neutral effects of warming on energy flux through a stream food web}{2020}{Daniel Nelson, Jonathan P Benstead, Alexander D Huryn, Wyatt F Cross, James M Hood, Philip W Johnson, James R Junker, Gisli M Gíslason, Jón S Ólafsson}{Ecology}{\empty}\detaileditem{DOM composition alters ecosystem function during microbial processing of isolated sources}{2019}{Juliana D’Andrilli, James R Junker, Heidi J Smith, Eric A Scholl, Christine M Foreman}{Biogeochemistry}{\empty}\detaileditem{Increased resource use efficiency amplifies positive response of aquatic primary production to experimental warming}{2018}{James M Hood, Jonathan P Benstead, Wyatt F Cross, Alexander D Huryn, Philip W Johnson, Gisli M Gíslason, James R Junker, Daniel Nelson, Jón S Ólafsson, Chau Tran}{Global change biology}{\empty}\detaileditem{Experimental whole‐stream warming alters community size structure}{2017}{Daniel Nelson, Jonathan P Benstead, Alexander D Huryn, Wyatt F Cross, James M Hood, Philip W Johnson, James R Junker, Gisli M Gíslason, Jón S Ólafsson}{Global Change Biology}{\empty}\detaileditem{Shifts in community size structure drive temperature invariance of secondary production in a stream‐warming experiment}{2017}{Daniel Nelson, Jonathan P Benstead, Alexander D Huryn, Wyatt F Cross, James M Hood, Philip W Johnson, James R Junker, Gisli M Gíslason, Jón S Ólafsson}{Ecology}{\empty}\detaileditem{Seasonality in the trophic basis of a temperate stream invertebrate assemblage: Importance of temperature and food quality}{2014}{James R Junker, Wyatt F Cross}{Limnology and Oceanography}{\empty}\detaileditem{Impacts of warming on the structure and functioning of aquatic communities: individual-to ecosystem-level responses}{2012}{Eoin J O'Gorman, Doris E Pichler, Georgina Adams, Jonathan P Benstead, Haley Cohen, Nicola Craig, Wyatt F Cross, Benoit OL Demars, Nikolai Friberg, Gisli Mar Gislason, Rakel Gudmundsdottir, Adrianna Hawczak, James M Hood, Lawrence N Hudson, Liselotte Johansson, Magnus P Johansson, James R Junker, Anssi Laurila, J Russell Manson, Efpraxia Mavromati, Daniel Nelson, Jon S Olafsson, Daniel M Perkins, Owen L Petchey, Marco Plebani, Daniel C Reuman, Bjoern C Rall, Rebecca Stewart, Murray SA Thompson, Guy Woodward}{Advances in ecological research}{\empty}}
+
+
 
 \end{document}

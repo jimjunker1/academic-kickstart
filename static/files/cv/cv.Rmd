@@ -9,10 +9,13 @@ email: "james.junker1@gmail.com"
 twitter: jimjunker
 github: jimjunker1
 date: "`r format(Sys.time(), '%B %Y')`"
+headcolor:
 output:
-  vitae::awesomecv:
-#  vitae::hyndman:
-    keep_tex: true
+  # vitae::awesomecv:
+  # vitae::hyndman:
+  # vitae::moderncv:
+  vitae::twentyseconds:
+      keep_tex: true
 ---
 
 ```{r setup, include=FALSE}
@@ -21,15 +24,16 @@ library(tidyverse)
 library(vitae)
 library(RefManageR)
 library(rorcid)
+library(scholar)
 '%ni%' <- Negate('%in%')
 ```
 
 # Education
 
 ```{r}
-edu <- do.call("rbind", rorcid::orcid_educations("0000-0001-9713-2330")$`0000-0001-9713-2330`$`affiliation-group`$summaries)
+# edu <- do.call("rbind", rorcid::orcid_educations("0000-0001-9713-2330")$`0000-0001-9713-2330`$`affiliation-group`$summaries)
 
-
+edu <- readRDS(file = "./data/edu.rds")
 edu %>%
   detailed_entries(
     what = `education-summary.role-title`,
@@ -43,25 +47,24 @@ edu %>%
 
 # Publications
 
-```{r}
-pubs <- scholar::get_publications("q3E1S9MAAAAJ") %>% 
-  slice(-(n()-3):-n()) %>%
-  dplyr::mutate(author = author %>% 
-                  as.character %>% 
-                  stringr::str_trim(),
-                journal = journal, 
-                first_author = case_when(stringr::str_starts(author, "JR Junker") ~ TRUE,
-                                         TRUE ~ FALSE)) %>% 
-  filter(title %ni% c("Freshwater processing of terrestrial dissolved organic matter: What governs lability?","RIVERINE DISSOLVED ORGANIC MATTER DECOMPOSITION AND DYNAMICS","Trophic basis of invertebrate production in a Northern Rockies stream with recent willow recovery")) %>%
-  dplyr::arrange(desc(year))
+```{r, include = TRUE, echo = FALSE}
 
-pubs %>% 
-  detailed_entries(
-    what = title,
-    when = year,
-    with = author,
-    where = journal, 
-    .protect = TRUE
-  )
+pubs <- readRDS(file = "./data/pubs.rds") %>% mutate(author = gsub("\\.","", author),
+                                                     author = enc2native(author),
+                                                     author = gsub(fixed("<ed>"), "i", author, useBytes = TRUE))#;pubs[,'author']
+in_review <- data.frame(
+  title = c("Resource supply govers the apparent temperature dependence of animal production at multiple timescales","Patterns and drivers of organic matter storage and stoichiometry across a wide stream temperature gradient"),
+  author = rep("James R Junker, Wyatt F Cross, Jonathan P Benstead, Alexander D Huryn, James M Hood, Daniel Nelson, Gisli M Gíslason, Jón S Ólafsson",2), journal = c("Ecology Letters","Ecosystems"), 
+  year = rep("In Review",2), stringsAsFactors = FALSE)
+
+pubs <- bind_rows(in_review, pubs %>% mutate(year = as.character(year)))
+
+pubs %>%
+ detailed_entries(
+   what = title,
+   when = year,
+   with = author,
+   where = journal
+ )
 ```
 
