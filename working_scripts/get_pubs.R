@@ -11,8 +11,8 @@ get_complete_coauthors <- function (id, pubid, sleep = 3, encoding = "UTF-8"){
 }
 library(tidyverse)
 library(scholar)
-library(rorcid)
-
+library(RefManageR)
+'%ni%' <- Negate('%in%')
 
 pubs <- scholar::get_publications("q3E1S9MAAAAJ") %>%
   slice(-(n()-3):-n()) %>%
@@ -40,6 +40,9 @@ for( i in 1:dim(pubs)[1]){
  print(x)
 }
 
+jrj.bib <- RefManageR::ReadGS(scholar.id = "q3E1S9MAAAAJ", sort.by.date = TRUE, check.entries = 'warn') %>%
+ rlist::list.filter(names(.) %ni% c("junker2011trophic","smith2015riverine","dandrilli2016freshwater"))
+RefManageR::WriteBib(jrj.bib, file = "./content/publication/pubs.bib")
 # #
 # get_complete_coauthors <- function (id, pubid, sleep = 3.0){
 #   auths = ""
