@@ -36,7 +36,8 @@ convert_complete_author <- function(complete_coauthor_string){
 author_exchange <- function(x,y){
   x_flat <- unlist(x)
   x_flat$author <- y
-  return(RelistBibEntry(x_flat))
+  z <- RelistBibEntry(x_flat)
+  return(z)
 }
 # ++++++++++++++++++++++++++ #
 
@@ -44,7 +45,7 @@ author_exchange <- function(x,y){
 # Scholar doesn't allow long author lists so must pull from article page
 # in the future figure out a better way to do this #
 # maybe Zotero ????
-
+pubs <- readRDS(file = "./static/files/cv/data/pubs.rds")
 pubs <- scholar::get_publications("q3E1S9MAAAAJ") %>%
   slice(-(n()-3):-n()) %>%
   dplyr::mutate(author = author %>%
@@ -57,7 +58,7 @@ pubs <- scholar::get_publications("q3E1S9MAAAAJ") %>%
   dplyr::arrange(desc(year))
 
 ## convert the author to full author list for CV
-full_authors = readRDS(file = "./static/files/cv/data/full_authors.rds")
+full_authors = readRDS(file = "./static/files/cv/data/full_authors.rds") %>% str_trim
 pubs <- pubs %>% mutate(author = full_authors) %>%
   mutate(author = gsub("\\.","", author),
          author = enc2native(author),
@@ -68,22 +69,22 @@ saveRDS(pubs, file = "./static/files/cv/data/pubs.rds")
 ## create and filter the bib from Google Scholar
 jrj.bib <- RefManageR::ReadGS(scholar.id = "q3E1S9MAAAAJ", sort.by.date = TRUE, check.entries = 'warn') %>%
   rlist::list.filter(names(.) %ni% c("junker2011trophic","smith2015riverine","dandrilli2016freshwater", "junker2019effects"))
-
-
+# WriteBib(jrj.bib, file = "./working_scripts/pubs.bib", biblatex = FALSE)
 # jrj.bib2 <- RefManageR::ReadZotero(user = "5288391", .params = list(collection = "My Library", key = "1o3VUn2pbhJsLZn4aWRYMovx"), delete.file = FALSE)
 ## use full_author list to convert the full author list to person objects
 
 full_authors_list <- lapply(full_authors, convert_complete_author)
 
 # now exchange full_authors_list for each publication in bib
-# debugonce(author_exchange)
+debugonce(author_exchange)
 jrj.bib = mapply(author_exchange, x = jrj.bib, y = full_authors_list)
-
+jrj.bib <- lapply(jrj.bib, RelistBibEntry)
 # write the bib file
+debugonce(WriteBib)
 RefManageR::WriteBib(jrj.bib, file = "./content/publication/pubs.bib")
 
 # in terminal run
-reticulate::py_run_file(file = "./working_scripts/pubs_update.py")
+# reticulate::py_run_file(file = "./working_scripts/pubs_update.py")
 # Ctrl + Alt + Enter
 academic import --bibtex content/publication/pubs.bib --overwrite
 
